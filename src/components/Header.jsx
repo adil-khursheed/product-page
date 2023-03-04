@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import CartModal from './CartModal';
+import {BsCart3} from 'react-icons/bs'
 
-const Header = ({toggleMenu, setToggleMenu}) => {
+const Header = ({ toggleMenu, setToggleMenu }) => {
+    
+    const [toggleCartModal, setToggleCartModal] = useState(false);
 
   return (
     <MainHeader>
@@ -27,14 +31,18 @@ const Header = ({toggleMenu, setToggleMenu}) => {
                     <li><a href="/">About</a></li>
                     <li><a href="/">Contact</a></li>
                   </ul>
-                  {/* <Overlay /> */}
             </Nav>
         </LeftNav>
         <RightNav>
-            <Cart>
-                <img src="/images/icon-cart.svg" alt="" />
+            {toggleCartModal && <CartModal />}
+
+            <Cart onClick={()=> setToggleCartModal(!toggleCartModal)}>
+                <BsCart3 className='cart__icon' />
+                <span>0</span>
             </Cart>
+
             <Avatar src="/images/image-avatar.png" />
+
         </RightNav>
     </MainHeader>
   )
@@ -58,7 +66,7 @@ const MainHeader = styled.header`
     }
 
     @media screen and (max-width: 768px){
-        padding: 1rem 2rem;
+        padding: 1rem 1.5rem;
         border-bottom: none;
     }
 `
@@ -99,11 +107,17 @@ const Nav = styled.nav`
         gap: 2rem;
         font-size: 0.85rem;
 
-
         a{
             text-decoration: none;
             color: var(--Dark-grayish-blue);
+
+            &:hover{
+                font-weight: 700;
+                color: var(--Dark-blue);
+            }
         }
+
+
     }
 
 
@@ -136,6 +150,7 @@ const RightNav = styled.div`
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    position: relative;
 
     @media screen and (max-width: 768px){
         gap: 1rem;
@@ -143,11 +158,37 @@ const RightNav = styled.div`
 `
 
 const Cart = styled.div`
+    position: relative;
+    cursor: pointer;
+    width: 17px;
 
+    img{
+        width: 100%;
+    }
+
+    span{
+        position: absolute;
+        top: -4px;
+        right: -5px;
+        font-size: 0.4rem;
+        background: var(--Orange);
+        width: 15px;
+        height: 10px;
+        border-radius: 50px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+    }
 `
 
 const Avatar = styled.img`
     width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover{
+        border: 2px solid var(--Orange);
+    }
 
     @media screen and (max-width: 768px){
         width: 30px;

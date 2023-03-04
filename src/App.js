@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Header from './components/Header'
 import styled from 'styled-components'
+import ProductDetails from './pages/ProductDetails';
 
 const App = () => {
 
@@ -10,6 +11,7 @@ const App = () => {
     <>
       <Header toggleMenu={toggleMenu} setToggleMenu={setToggleMenu} />
       <Overlay toggleMenu={toggleMenu} />
+      <ProductDetails />
     </>
   )
 }
