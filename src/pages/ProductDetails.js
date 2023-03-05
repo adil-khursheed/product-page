@@ -5,10 +5,8 @@ import { CartState } from '../context/Contexts';
 
 const ProductDetails = () => {
 
-    const { state: {products, cart}, dispatch } = CartState();
+    const { state: {products}, dispatch } = CartState();
     const [quantity, setQuantity] = useState(1);
-
-    console.log(cart);
 
     const increment = quantity + 1;
 
