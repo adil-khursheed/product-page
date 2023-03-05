@@ -57,7 +57,8 @@ const MainHeader = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 0rem;
+    // padding: 2rem 0rem;
+    height: 80px;
     border-bottom: 1px solid var(--Grayish-blue);
     position: relative;
 
@@ -83,7 +84,6 @@ const MenuIcon = styled.div`
 
     @media screen and (max-width: 768px){
         display: block;
-        position: fixed;
         z-index: 10;
     }
 `
@@ -91,7 +91,6 @@ const MenuIcon = styled.div`
 const Logo = styled.div`
 
     @media screen and (max-width: 768px){
-        margin-left: 2rem;
 
         img{
             width: 110px;
@@ -160,10 +159,16 @@ const RightNav = styled.div`
 const Cart = styled.div`
     position: relative;
     cursor: pointer;
-    width: 17px;
+    width: 18px;
 
-    img{
+    .cart__icon{
         width: 100%;
+        color: var(--Dark-grayish-blue);
+
+
+        &:hover{
+            color: var(--Dark-blue);
+        }
     }
 
     span{
