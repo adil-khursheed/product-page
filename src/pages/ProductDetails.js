@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { ProductInfo } from '../productApi'
 import { FaMinus, FaPlus } from 'react-icons/fa';
+import { CartState } from '../context/Contexts';
 
 const ProductDetails = () => {
 
-    const [productImages] = useState(ProductInfo.images);
+    const { state: {products, cart}, dispatch } = CartState();
     const [quantity, setQuantity] = useState(1);
-    const [slideIndex, setSlideIndex] = useState(1);
 
+    console.log(cart);
 
     const increment = quantity + 1;
 
@@ -17,20 +17,12 @@ const ProductDetails = () => {
         if (quantity <= 1) setQuantity(1);
     }
 
-    const nextSlide = () => {
-        if (slideIndex !== productImages.length) {
-            setSlideIndex(slideIndex + 1);
-        } else if (slideIndex === productImages.length) {
-            setSlideIndex(1);
-        }
-    }
-
 
 
   return (
       <>
           <Wrapper>
-                  {ProductInfo.map((info) => (
+                  {products.map((info) => (
                       <>
                         <LeftGrid key={info.id}>
                             <LargeImage>
@@ -38,7 +30,7 @@ const ProductDetails = () => {
                                   <div className="previous-icon">
                                     <img src="/images/icon-previous.svg" alt="" />
                                   </div>
-                                  <div className="next-icon" onClick={nextSlide}>
+                                  <div className="next-icon">
                                      <img src="/images/icon-next.svg" alt="" />
                                   </div>
                             </LargeImage>
@@ -83,7 +75,12 @@ const ProductDetails = () => {
                                         <FaPlus />
                                     </button>
                                 </div>
-                              <button className='add__to__cart'>
+                                  <button className='add__to__cart' onClick={() => {
+                                      dispatch({
+                                          type: "ADD_TO_CART",
+                                          payload: info,
+                                      })
+                                  }}>
                                   Add to cart
                               </button>
                             </div>

@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import CartModal from './CartModal';
 import {BsCart3} from 'react-icons/bs'
+import { CartState } from '../context/Contexts';
 
 const Header = ({ toggleMenu, setToggleMenu }) => {
-    
+
+    const { state: { cart } } = CartState();
+
     const [toggleCartModal, setToggleCartModal] = useState(false);
 
   return (
@@ -38,7 +41,7 @@ const Header = ({ toggleMenu, setToggleMenu }) => {
 
             <Cart onClick={()=> setToggleCartModal(!toggleCartModal)}>
                 <BsCart3 className='cart__icon' />
-                <span>0</span>
+                <span>{cart.length}</span>
             </Cart>
 
             <Avatar src="/images/image-avatar.png" />
@@ -180,8 +183,9 @@ const Cart = styled.div`
         width: 15px;
         height: 10px;
         border-radius: 50px;
-        display: grid;
-        place-items: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: #fff;
     }
 `

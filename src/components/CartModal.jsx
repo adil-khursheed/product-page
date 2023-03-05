@@ -1,14 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
+import { CartState } from '../context/Contexts';
 
 const CartModal = () => {
+
+    const { state: { cart } } = CartState();
+
   return (
       <>
           <Modal>
-            <h4>Cart</h4>
-            <div>
-                Your cart is empty.
-            </div>
+              <h4>Cart</h4>
+              {cart.length > 0 ? (
+              <></>
+              ) : (
+
+                <div>
+                    Your cart is empty.
+                </div>
+              )}
         </Modal>
       </>
   )
