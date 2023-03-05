@@ -1,9 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { ProductInfo } from '../productApi'
 import { FaMinus, FaPlus } from 'react-icons/fa';
 
 const ProductDetails = () => {
+
+    const [productImages] = useState(ProductInfo.images);
+    const [quantity, setQuantity] = useState(1);
+    const [slideIndex, setSlideIndex] = useState(1);
+
+
+    const increment = quantity + 1;
+
+    const handleDecrement = () => {
+        setQuantity(quantity - 1);
+        if (quantity <= 1) setQuantity(1);
+    }
+
+    const nextSlide = () => {
+        if (slideIndex !== productImages.length) {
+            setSlideIndex(slideIndex + 1);
+        } else if (slideIndex === productImages.length) {
+            setSlideIndex(1);
+        }
+    }
+
+
+
   return (
       <>
           <Wrapper>
@@ -11,15 +34,21 @@ const ProductDetails = () => {
                       <>
                         <LeftGrid key={info.id}>
                             <LargeImage>
-                                <img src={info.images[0].src} alt={info.title} />
-                              </LargeImage>
-                              <SmallImage>
+                                  <img src={info.images[0].src} alt={info.title} className='main__image' />
+                                  <div className="previous-icon">
+                                    <img src="/images/icon-previous.svg" alt="" />
+                                  </div>
+                                  <div className="next-icon" onClick={nextSlide}>
+                                     <img src="/images/icon-next.svg" alt="" />
+                                  </div>
+                            </LargeImage>
+                            <SmallImage>
                                 {info.images.map((image) => (
                                     <div key={image.id}>
                                         <img src={image.src} alt={image.title} />
                                     </div>
                                 ))}
-                                </SmallImage>
+                            </SmallImage>
                         </LeftGrid>
                         <RightGrid>
                             <p className="subtitle">
@@ -44,13 +73,13 @@ const ProductDetails = () => {
                             </div>
                             <div className="button-wrapper">
                                 <div className="quantity__wrapper">
-                                    <button className="decrement">
+                                    <button className="decrement" onClick={handleDecrement}>
                                         <FaMinus />
                                     </button>
                                     <p className="quantity">
-                                        0
+                                        {quantity}
                                     </p>
-                                    <button className="decrement">
+                                      <button className="increment" onClick={() => setQuantity(increment)}>
                                         <FaPlus />
                                     </button>
                                 </div>
@@ -95,8 +124,9 @@ const LargeImage = styled.div`
     height: 380px;
     border-radius: 15px;
     cursor: pointer;
+    position: relative;
 
-    img{
+    .main__image{
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -104,13 +134,47 @@ const LargeImage = styled.div`
 
     }
 
+    .previous-icon,
+    .next-icon{
+        position: absolute;
+        display: none;
+    }
+
     @media screen and (max-width: 780px){
         width: 100%;
         height: 500px;
         border-radius: 0;
 
-        img{
+        .main__image{
             border-radius: 0;
+        }
+
+        .previous-icon,
+        .next-icon{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 35px;
+            height: 35px;
+            background-color: var(--White);
+            // padding: 10px;
+            border-radius: 50%;
+            z-index: 999;
+        }
+
+        .previous-icon{
+            left: 10px;
+        }
+
+        .next-icon{
+            right: 10px;
+        }
+
+        .previous-icon img,
+        .next-icon img{
+            width: 10px;
         }
     }
 
@@ -227,6 +291,7 @@ const RightGrid = styled.div`
                 border: none;
                 outline: none;
                 color: var(--Orange);
+                cursor: pointer;
             }
 
             p{
@@ -246,6 +311,7 @@ const RightGrid = styled.div`
             font-size: 1rem;
             font-weight: 700;
             border-radius: 6px;
+            cursor: pointer;
         }
     }
 
