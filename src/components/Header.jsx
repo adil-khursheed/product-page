@@ -41,7 +41,7 @@ const Header = ({ toggleMenu, setToggleMenu }) => {
 
             <Cart onClick={()=> setToggleCartModal(!toggleCartModal)}>
                 <BsCart3 className='cart__icon' />
-                <span>{cart.length}</span>
+                {cart.length > 0 && <span>{cart.length}</span>}
             </Cart>
 
             <Avatar src="/images/image-avatar.png" />

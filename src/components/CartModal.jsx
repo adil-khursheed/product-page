@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { CartState } from '../context/Contexts';
 
@@ -6,6 +6,11 @@ const CartModal = () => {
 
     const { state: { cart } } = CartState();
 
+    const [total, setTotal] = useState();
+
+    useEffect(() => {
+        setTotal(cart.reduce((acc, curr) => acc + Number(curr.price)*curr.qty, 0))
+    }, [cart])
 
   return (
       <>
@@ -24,11 +29,13 @@ const CartModal = () => {
                                     <div className="cart__info">
                                         <p className='title'>{prod.title}</p>
                                         <div className="cart__amount">
-                                              <p>{prod.price} x 3 </p>
-                                              <p className="subtotal">Subtotal</p>
+                                              <p>{prod.price} x {cart.length}</p>
+                                              <p className="subtotal">{total}</p>
                                         </div>
                                     </div>
-                                    <div className="delete__icon">
+                                    <div
+                                        className="delete__icon"
+                                    >
                                         <img src="/images/icon-delete.svg" alt="" />
                                     </div>
                                 </Product>
