@@ -44,7 +44,7 @@ const CartModal = () => {
               ) : (
 
                 <CartEmpty>
-                    Your cart is empty.
+                    <h5>Your cart is empty.</h5>
                 </CartEmpty>
               )}
         </Modal>
@@ -145,10 +145,11 @@ const Checkout = styled.button`
 
 
 const CartEmpty = styled.div`
+    min-height: calc(220px - 3rem);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--Dark-grayish-blue);
 `

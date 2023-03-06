@@ -9,19 +9,19 @@ export const ProductInfo = [
         "mrp": "$250.00",
         "images": [
             {
-                "id": 1,
+                "id": 11,
                 "src": "/images/image-product-1.jpg",
             },
             {
-                "id": 2,
+                "id": 12,
                 "src": "/images/image-product-2.jpg",
             },
             {
-                "id": 3,
+                "id": 13,
                 "src": "/images/image-product-3.jpg",
             },
             {
-                "id": 4,
+                "id": 14,
                 "src": "/images/image-product-4.jpg",
             },
         ]
