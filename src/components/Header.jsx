@@ -6,7 +6,7 @@ import { CartState } from '../context/Contexts';
 
 const Header = ({ toggleMenu, setToggleMenu }) => {
 
-    const { state: { cart } } = CartState();
+    const { totalQuantities } = CartState();
 
     const [toggleCartModal, setToggleCartModal] = useState(false);
 
@@ -41,7 +41,7 @@ const Header = ({ toggleMenu, setToggleMenu }) => {
 
             <Cart onClick={()=> setToggleCartModal(!toggleCartModal)}>
                 <BsCart3 className='cart__icon' />
-                {cart.length > 0 && <span>{cart.length}</span>}
+                  {totalQuantities > 0 && <span>{totalQuantities}</span>}
             </Cart>
 
             <Avatar src="/images/image-avatar.png" />

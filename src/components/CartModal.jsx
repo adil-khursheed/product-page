@@ -1,26 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { CartState } from '../context/Contexts';
+import { CartState } from '../context/Contexts'
 
 const CartModal = () => {
 
-    const { state: { cart } } = CartState();
+    const { totalPrice, totalQuantities, cartItems, onRemove } = CartState();
 
-    const [total, setTotal] = useState();
-
-    useEffect(() => {
-        setTotal(cart.reduce((acc, curr) => acc + Number(curr.price)*curr.qty, 0))
-    }, [cart])
 
   return (
       <>
           <Modal>
               <h4>Cart</h4>
-              {cart.length > 0 ? (
+              {cartItems.length > 0 ? (
                   <>
                   <Wrapper>
                       {
-                          cart.map((prod) => (
+                          cartItems.map((prod) => (
                             <>
                                 <Product key={prod.id}>
                                     <div className="cart__image">
@@ -29,12 +24,13 @@ const CartModal = () => {
                                     <div className="cart__info">
                                         <p className='title'>{prod.title}</p>
                                         <div className="cart__amount">
-                                              <p>{prod.price} x {cart.length}</p>
-                                              <p className="subtotal">{total}</p>
+                                              <p>${prod.price} x {totalQuantities}</p>
+                                              <p className="subtotal">${totalPrice}</p>
                                         </div>
                                     </div>
                                     <div
-                                        className="delete__icon"
+                                          className="delete__icon"
+                                          onClick={()=>onRemove(prod)}
                                     >
                                         <img src="/images/icon-delete.svg" alt="" />
                                     </div>

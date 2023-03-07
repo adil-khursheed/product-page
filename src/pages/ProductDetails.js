@@ -1,27 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { FaMinus, FaPlus } from 'react-icons/fa';
+import { ProductInfo } from '../productApi';
 import { CartState } from '../context/Contexts';
 
 const ProductDetails = () => {
 
-    const { state: {products}, dispatch } = CartState();
-    const [quantity, setQuantity] = useState(1);
-
-    const increment = quantity + 1;
-
-    const handleDecrement = () => {
-        setQuantity(quantity - 1);
-        if (quantity <= 1) setQuantity(1);
-    }
-
-
+    const { decQty, incQty, qty, addToCart } = CartState();
 
   return (
       <>
           <Wrapper>
-                  {products.map((info) => (
-                      <>
+              {ProductInfo.map((info) => (
+                  <>
                         <LeftGrid key={info.id}>
                             <LargeImage>
                                   <img src={info.images[0].src} alt={info.title} className='main__image' />
@@ -52,33 +43,28 @@ const ProductDetails = () => {
                             </p>
                             <div className="price">
                                 <div className="discounted__price">
-                                      <h3 className="sale__price">{info.price}</h3>
+                                      <h3 className="sale__price">${info.price}</h3>
                                     <h5 className="discount__percentage">
                                         {info.discount}
                                     </h5>
                                 </div>
                                 <del className="regular__price">
-                                    {info.mrp}
+                                    ${info.mrp}
                                 </del>
                             </div>
                             <div className="button-wrapper">
                                 <div className="quantity__wrapper">
-                                    <button className="decrement" onClick={handleDecrement}>
+                                    <button className="decrement" onClick={decQty}>
                                         <FaMinus />
                                     </button>
                                     <p className="quantity">
-                                        {quantity}
+                                        {qty}
                                     </p>
-                                      <button className="increment" onClick={() => setQuantity(increment)}>
+                                      <button className="increment" onClick={incQty}>
                                         <FaPlus />
                                     </button>
                                 </div>
-                                  <button className='add__to__cart' onClick={() => {
-                                      dispatch({
-                                          type: "ADD_TO_CART",
-                                          payload: info,
-                                      })
-                                  }}>
+                                  <button className='add__to__cart' onClick={()=> addToCart(info, qty)}>
                                   Add to cart
                               </button>
                             </div>
