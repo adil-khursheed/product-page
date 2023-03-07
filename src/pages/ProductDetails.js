@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { ProductInfo } from '../productApi';
@@ -7,6 +7,15 @@ import { CartState } from '../context/Contexts';
 const ProductDetails = () => {
 
     const { decQty, incQty, qty, addToCart } = CartState();
+    const [index, setIndex] = useState(0);
+
+    const prevSlide = () => {
+        if (index == 0) {
+            setIndex(index)
+        } else {
+            setIndex(index - 1)
+        }
+    }
 
   return (
       <>
@@ -15,8 +24,8 @@ const ProductDetails = () => {
                   <>
                         <LeftGrid key={info.id}>
                             <LargeImage>
-                                  <img src={info.images[0].src} alt={info.title} className='main__image' />
-                                  <div className="previous-icon">
+                                  <img src={info.images[index].src} alt={info.title} className='main__image' />
+                                  <div className="previous-icon" onClick={prevSlide}>
                                     <img src="/images/icon-previous.svg" alt="" />
                                   </div>
                                   <div className="next-icon">
@@ -24,10 +33,12 @@ const ProductDetails = () => {
                                   </div>
                             </LargeImage>
                             <SmallImage>
-                                {info.images.map((image) => (
-                                    <div key={image.id}>
-                                        <img src={image.src} alt={image.title} />
-                                    </div>
+                                {info.images.map((image, i) => (
+                                    <img
+                                        src={image.src}
+                                        alt={image.title}
+                                        onClick={()=> setIndex(i)}
+                                    />
                                 ))}
                             </SmallImage>
                         </LeftGrid>
@@ -142,7 +153,7 @@ const LargeImage = styled.div`
             background-color: var(--White);
             // padding: 10px;
             border-radius: 50%;
-            z-index: 999;
+            z-index: 0;
         }
 
         .previous-icon{

@@ -87,7 +87,7 @@ const MenuIcon = styled.div`
 
     @media screen and (max-width: 768px){
         display: block;
-        z-index: 10;
+        z-index: 10000;
     }
 `
 
@@ -132,7 +132,7 @@ const Nav = styled.nav`
         height: 100vh;
         transform: ${({ toggleMenu }) => toggleMenu ? 'translateX(0)' : 'translateX(-100%)'};
         transition: all 300ms ease-in-out;
-        z-index: 1;
+        z-index: 1000;
 
         ul{
             flex-direction: column;
@@ -162,7 +162,7 @@ const RightNav = styled.div`
 const Cart = styled.div`
     position: relative;
     cursor: pointer;
-    width: 18px;
+    width: 25px;
 
     .cart__icon{
         width: 100%;

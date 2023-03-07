@@ -30,5 +30,5 @@ const Overlay = styled.div`
     right: 0;
     bottom: 0;
     transition: all 350ms ease-in;
-    // z-index: -1;
+    z-index: 999;
 `
