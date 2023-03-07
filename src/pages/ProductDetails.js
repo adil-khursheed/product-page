@@ -9,13 +9,13 @@ const ProductDetails = () => {
     const { decQty, incQty, qty, addToCart } = CartState();
     const [index, setIndex] = useState(0);
 
-    const prevSlide = () => {
-        if (index == 0) {
-            setIndex(index)
-        } else {
-            setIndex(index - 1)
-        }
-    }
+    // const nextSlide = () => {
+    //     if (index !== ProductInfo.images.length) {
+    //         setIndex(index + 1)
+    //     } else if (index === ProductInfo.images.length){
+    //         setIndex(1);
+    //     }
+    // }
 
   return (
       <>
@@ -25,19 +25,20 @@ const ProductDetails = () => {
                         <LeftGrid key={info.id}>
                             <LargeImage>
                                   <img src={info.images[index].src} alt={info.title} className='main__image' />
-                                  <div className="previous-icon" onClick={prevSlide}>
+                                  {/* <div className="previous-icon">
                                     <img src="/images/icon-previous.svg" alt="" />
                                   </div>
                                   <div className="next-icon">
                                      <img src="/images/icon-next.svg" alt="" />
-                                  </div>
+                                  </div> */}
                             </LargeImage>
                             <SmallImage>
                                 {info.images.map((image, i) => (
                                     <img
+                                        key={image.id}
                                         src={image.src}
                                         alt={image.title}
-                                        onClick={()=> setIndex(i)}
+                                        onMouseEnter={()=> setIndex(i)}
                                     />
                                 ))}
                             </SmallImage>
@@ -80,8 +81,8 @@ const ProductDetails = () => {
                               </button>
                             </div>
                         </RightGrid>
-                      </>
-                  ))}
+                    </>
+                ))}
           </Wrapper>
       </>
   )
@@ -122,15 +123,16 @@ const LargeImage = styled.div`
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center top;
         border-radius: 15px;
 
     }
 
-    .previous-icon,
-    .next-icon{
-        position: absolute;
-        display: none;
-    }
+    // .previous-icon,
+    // .next-icon{
+    //     position: absolute;
+    //     display: none;
+    // }
 
     @media screen and (max-width: 780px){
         width: 100%;
@@ -141,33 +143,33 @@ const LargeImage = styled.div`
             border-radius: 0;
         }
 
-        .previous-icon,
-        .next-icon{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 35px;
-            height: 35px;
-            background-color: var(--White);
-            // padding: 10px;
-            border-radius: 50%;
-            z-index: 0;
-        }
+        // .previous-icon,
+        // .next-icon{
+        //     display: flex;
+        //     justify-content: center;
+        //     align-items: center;
+        //     top: 50%;
+        //     transform: translateY(-50%);
+        //     width: 35px;
+        //     height: 35px;
+        //     background-color: var(--White);
+        //     // padding: 10px;
+        //     border-radius: 50%;
+        //     z-index: 0;
+        // }
 
-        .previous-icon{
-            left: 10px;
-        }
+        // .previous-icon{
+        //     left: 10px;
+        // }
 
-        .next-icon{
-            right: 10px;
-        }
+        // .next-icon{
+        //     right: 10px;
+        // }
 
-        .previous-icon img,
-        .next-icon img{
-            width: 10px;
-        }
+        // .previous-icon img,
+        // .next-icon img{
+        //     width: 10px;
+        // }
     }
 
     @media screen and (max-width: 550px){
@@ -178,12 +180,13 @@ const LargeImage = styled.div`
 
 const SmallImage = styled.div`
     display: flex;
+    justify-content: center;
     gap: 10px;
     margin: 1rem 0;
     width: 100%;
 
     img{
-        width: 100%;
+        width: 22%;
         border-radius: 10px;
         cursor: pointer;
         transition: opacity 250ms ease-in-out;
@@ -196,7 +199,7 @@ const SmallImage = styled.div`
 
 
     @media screen and (max-width: 780px){
-        display: none;
+        padding: 0 1rem;
     }
 `
 
