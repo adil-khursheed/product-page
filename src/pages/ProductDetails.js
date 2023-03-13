@@ -3,34 +3,22 @@ import styled from 'styled-components'
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { ProductInfo } from '../productApi';
 import { CartState } from '../context/Contexts';
+import LightBox from '../components/LightBox';
 
 const ProductDetails = () => {
 
-    const { decQty, incQty, qty, addToCart } = CartState();
+    const { decQty, incQty, qty, addToCart, handleLightBox, toggleLightBox } = CartState();
     const [index, setIndex] = useState(0);
-
-    // const nextSlide = () => {
-    //     if (index !== ProductInfo.images.length) {
-    //         setIndex(index + 1)
-    //     } else if (index === ProductInfo.images.length){
-    //         setIndex(1);
-    //     }
-    // }
 
   return (
       <>
+          {toggleLightBox && <LightBox />}
           <Wrapper>
               {ProductInfo.map((info) => (
                   <>
-                        <LeftGrid key={info.id}>
+                        <LeftGrid>
                             <LargeImage>
-                                  <img src={info.images[index].src} alt={info.title} className='main__image' />
-                                  {/* <div className="previous-icon">
-                                    <img src="/images/icon-previous.svg" alt="" />
-                                  </div>
-                                  <div className="next-icon">
-                                     <img src="/images/icon-next.svg" alt="" />
-                                  </div> */}
+                                  <img src={info.images[index].src} alt={info.title} className='main__image' onClick={handleLightBox} />
                             </LargeImage>
                             <SmallImage>
                                 {info.images.map((image, i) => (
@@ -128,12 +116,6 @@ const LargeImage = styled.div`
 
     }
 
-    // .previous-icon,
-    // .next-icon{
-    //     position: absolute;
-    //     display: none;
-    // }
-
     @media screen and (max-width: 780px){
         width: 100%;
         height: 500px;
@@ -142,34 +124,6 @@ const LargeImage = styled.div`
         .main__image{
             border-radius: 0;
         }
-
-        // .previous-icon,
-        // .next-icon{
-        //     display: flex;
-        //     justify-content: center;
-        //     align-items: center;
-        //     top: 50%;
-        //     transform: translateY(-50%);
-        //     width: 35px;
-        //     height: 35px;
-        //     background-color: var(--White);
-        //     // padding: 10px;
-        //     border-radius: 50%;
-        //     z-index: 0;
-        // }
-
-        // .previous-icon{
-        //     left: 10px;
-        // }
-
-        // .next-icon{
-        //     right: 10px;
-        // }
-
-        // .previous-icon img,
-        // .next-icon img{
-        //     width: 10px;
-        // }
     }
 
     @media screen and (max-width: 550px){

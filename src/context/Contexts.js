@@ -11,6 +11,7 @@ const Contexts = ({ children }) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalQuantities, setTotalQuantities] = useState(0);
     const [qty, setQty] = useState(1);
+    const [toggleLightBox, setToggleLightBox] = useState(false);
 
     let foundProduct;
 
@@ -30,7 +31,7 @@ const Contexts = ({ children }) => {
                 }
             })
 
-            setCartItems(updatedCartItems);
+           setCartItems(updatedCartItems);
         } else {
             product.quantity = quantity;
 
@@ -61,6 +62,12 @@ const Contexts = ({ children }) => {
             return prevQty - 1;
         });
     }
+
+    const handleLightBox = () => {
+        setToggleLightBox(!toggleLightBox);
+    }
+
+
   return (
       <Cart.Provider value={{
           cartItems,
@@ -70,7 +77,9 @@ const Contexts = ({ children }) => {
           incQty,
           decQty,
           addToCart,
-          onRemove
+          onRemove,
+          handleLightBox,
+          toggleLightBox,
       }}>
           {children}
       </Cart.Provider>
