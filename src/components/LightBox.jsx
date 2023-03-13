@@ -80,6 +80,11 @@ const LargeImage = styled.div`
             color: var(--Orange);
         }
     }
+
+
+    @media screen and (max-width: 550px){
+        width: 380px;
+    }
 `
 
 
@@ -97,7 +102,6 @@ const SmallImage = styled.div`
         transition: opacity 250ms ease-in-out;
 
         &:hover{
-            opacity: 0.5;
             border: 2px solid var(--Orange);
         }
     }
